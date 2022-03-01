@@ -1,0 +1,46 @@
+{
+  "name": "hotpepperbot",
+  "description": "A repository template for open-source demos, guides and sample apps. Description here.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "build:typescript": "tsc",
+    "build:scss": "node-sass --output-style compressed --output dist/web/overlays/wwwroot/styles src/web/overlays/styles",
+    "build:copy:overlays": "copyfiles -E -u 4 \"src/web/overlays/wwwroot/**/*\" dist/web/overlays/wwwroot",
+    "build:copy:assets": "copyfiles -E \"assets/**/*\" dist/web/overlays/wwwroot",
+    "build:copy": "npm run build:copy:overlays && npm run build:copy:assets",
+    "build": "npm run build:typescript && npm run build:scss && npm run build:copy",
+    "debug": "nodemon -i .git,node_modules -e js,ts,htm,env,scss,json,vue -w ./src -x \"node --inspect --require ts-node/register ./src/index.ts\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deepgram-devs/hotpepperbot.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/deepgram-devs/hotpepperbot/issues"
+  },
+  "homepage": "https://github.com/deepgram-devs/hotpepperbot#readme",
+  "dependencies": {
+    "axios": "^0.26.0",
+    "comfy.js": "^1.1.13",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "faunadb": "^4.5.2",
+    "sanitize-html": "^2.7.0",
+    "socket.io": "^2.4.1",
+    "throttled-queue": "^2.1.2",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.21",
+    "copyfiles": "^2.4.1",
+    "node-sass-middleware": "^1.0.1",
+    "nodemon": "^2.0.15",
+    "ts-loader": "^9.2.6",
+    "ts-node": "^10.6.0",
+    "typescript": "^4.6.2"
+  }
+}
