@@ -1,3 +1,4 @@
+import webhookRouter from './integrations/twitch/eventSub';
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -22,8 +23,7 @@ const TwitchClientSecret = process.env.TWITCH_CLIENT_SECRET
 const authParams = qs.stringify({
   client_id: TwitchClientId,
   client_secret: TwitchClientSecret,
-  grant_type: 'client_credentials',
-  scope: 'channel:moderate chat:edit chat:read'
+  grant_type: 'client_credentials'
 })
 
 axios.post(`${TWITCH_API}?${authParams}`)
@@ -56,6 +56,8 @@ async function init(response: AxiosResponse<TwitchTokenResponse>) {
   Twitch.init(config)
 
   app.use(express.json())
+  
+  app.use('/webhooks', webhookRouter)
 
   app.use('/overlays', overlayRouter)
 
@@ -66,6 +68,8 @@ async function init(response: AxiosResponse<TwitchTokenResponse>) {
   server.listen(port, () => {
     log(LogLevel.Info, `Server is listening on port ${port}`)
   })
+
+  await Twitch.registerWebhooks()
 
   const chatMonitor: ChatMonitor = new ChatMonitor(config)
 

@@ -21,6 +21,9 @@ export * from './onSayEvent'
 export * from './onSoundEffectEvent'
 export * from './onStopEvent'
 
+export * from './twitchFollowEvent';
+export * from './twitchStreamEvent';
+
 export * from './activity'
 export * from './action'
 export * from './credit'
